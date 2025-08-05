@@ -1,0 +1,37 @@
+version: '3.9'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: base
+    container_name: app
+    restart: always
+    ports:
+      - ${PORT}:${PORT}
+    volumes:
+      - .:/usr/src/app
+    # depends_on:
+    #   - database
+    #   - cache
+    environment:
+      SECRET: ${SECRET}
+      EXPIRES_IN: ${EXPIRES_IN}
+      PORT: ${PORT}
+
+      TYPEORM_TYPE: ${TYPEORM_TYPE}
+      TYPEORM_HOST: ${TYPEORM_HOST}
+      TYPEORM_PORT: ${TYPEORM_PORT}
+      TYPEORM_PASSWORD: ${TYPEORM_PASSWORD}
+      TYPEORM_USERNAME: ${TYPEORM_USERNAME}
+      TYPEORM_DATABASE: ${TYPEORM_DATABASE}
+
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PORT: ${REDIS_PORT}
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+
+    stdin_open: true
+    tty: true
+    extra_hosts:
+      - 'host.docker.internal:172.17.0.1'

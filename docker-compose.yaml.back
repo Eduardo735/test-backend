@@ -1,0 +1,65 @@
+# volumes:
+#   database:
+#     driver: local
+#   cache:
+#     driver: local
+# # App local containers nodejs, postgres, redis
+
+# services:
+#   localstack:
+#     container_name: 'localstack'
+#     image: localstack/localstack
+#     ports:
+#       - '127.0.0.1:4566:4566'
+#       - '127.0.0.1:4510-4559:4510-4559'
+#     environment:
+#       - SERVICES=sqs,s3
+#       - DEBUG=${DEBUG-}
+#       - DOCKER_HOST=unix:///var/run/docker.sock
+#     env_file:
+#       - .env
+#     volumes:
+#       - '/var/run/docker.sock:/var/run/docker.sock'
+#       - '${PWD}/config/docker/init-aws.sh:/etc/localstack/init/ready.d/init-aws.sh'
+#   cache:
+#     image: redis:alpine
+#     restart: always
+#     command: /bin/sh -c "redis-server --requirepass $$REDIS_PASSWORD"
+#     ports:
+#       - 6379:6379
+#     volumes:
+#       - cache:/data
+#     environment:
+#       REDIS_PASSWORD: ${REDIS_PASSWORD}
+
+#   database:
+#     image: postgres:13-alpine
+#     restart: always
+#     ports:
+#       - 5432:5432
+#     volumes:
+#       - database:/var/lib/postgresql/data
+#     environment:
+#       POSTGRES_USER: ${TYPEORM_USERNAME}
+#       POSTGRES_PASSWORD: ${TYPEORM_PASSWORD}
+#       POSTGRES_DB: ${TYPEORM_DATABASE}
+
+#   app:
+#     build:
+#       context: .
+#       dockerfile: Dockerfile
+#       target: base
+#     env_file: .env.docker
+#     container_name: app
+#     restart: always
+#     ports:
+#       - ${PORT}:${PORT}
+#     volumes:
+#       - .:/usr/src/app
+#     depends_on:
+#       - database
+#       - cache
+#     stdin_open: true
+#     tty: true
+#     extra_hosts:
+#       - 'host.docker.internal:172.17.0.1'
