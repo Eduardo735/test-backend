@@ -4,12 +4,16 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Land } from './Land.entity';
+import { Customer } from './Customer.entity';
 
-@Entity('quotation')
-export class Quotation {
+@Entity('quote')
+export class Quote {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -18,6 +22,18 @@ export class Quotation {
 
   @Column({ nullable: true })
   user_id: string;
+
+  @OneToOne(() => Land, (land) => land.quote, {
+    cascade: true,
+  })
+  @JoinColumn({ name: 'land_id' })
+  land: Land;
+
+  @OneToOne(() => Customer, (customer) => customer.quote, {
+    cascade: true,
+  })
+  @JoinColumn({ name: 'customer_id' })
+  customer: Customer;
 
   @CreateDateColumn()
   @Exclude()

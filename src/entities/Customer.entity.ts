@@ -1,13 +1,15 @@
 import { Exclude } from 'class-transformer';
-// import { ReportContent } from './ReportContent.entity';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Quote } from './Quote.entity';
 
 @Entity('customer')
 export class Customer {
@@ -23,6 +25,10 @@ export class Customer {
   @CreateDateColumn()
   @Exclude()
   created_at: Date;
+
+  @OneToOne(() => Quote, (quote) => quote.customer)
+  @JoinColumn({ name: 'quote_id' })
+  quote: Quote;
 
   @UpdateDateColumn({ nullable: true })
   @Exclude()

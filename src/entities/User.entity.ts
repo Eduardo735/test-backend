@@ -3,17 +3,9 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
-  ManyToMany,
-  ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
+  UpdateDateColumn
 } from 'typeorm';
-import { Firm } from './Firm.entity';
-import Role from './Role.entity';
-import UserEmail from './UserEmail.entity';
-import UserRole from './UserRole.entity';
 
 @Entity('user')
 export class User {
@@ -67,16 +59,4 @@ export class User {
   @UpdateDateColumn({ nullable: true })
   @Exclude()
   updated_at: Date;
-
-  @ManyToOne(() => Firm, (firm) => firm.users)
-  @JoinColumn({ name: 'firm_id' })
-  firm: Firm;
-
-  @OneToMany(() => UserEmail, (userEmail) => userEmail.user)
-  @JoinColumn({ name: 'id' })
-  userEmails: UserEmail[];
-
-  @ManyToMany(() => UserRole, (userRole) => userRole.user)
-  @JoinColumn({ name: 'id', referencedColumnName: 'user_id' })
-  roles: Role[];
 }

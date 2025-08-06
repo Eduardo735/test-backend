@@ -5,9 +5,13 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  JoinColumn,
+  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { Quote } from './Quote.entity';
+import { State } from './State.entity';
 
 @Entity('land')
 export class Land {
@@ -17,39 +21,15 @@ export class Land {
   @Column({ nullable: true })
   name: string;
 
-  @Column({ nullable: true })
-  user_id: string;
+  @OneToOne(() => State, (state) => state.land, {
+    cascade: true,
+  })
+  @JoinColumn({ name: 'state_id' })
+  state: State;
 
-  // @ManyToOne(() => User, (user) => user.id, {
-  // cascade: true,
-  // })
-  // @JoinColumn({ name: 'user_id' })
-  // owner: User;
-
-  // @ManyToMany(() => User, (user) => user, { eager: true, cascade: true })
-  // @JoinTable({
-  //   name: 'report_user',
-  //   joinColumn: {
-  //     name: 'report_id',
-  //     referencedColumnName: 'id',
-  //   },
-  //   inverseJoinColumn: {
-  //     name: 'user_id',
-  //     referencedColumnName: 'id',
-  //   },
-  // })
-  // members: User[];
-
-  // @OneToMany(() => ReportCompany, (reportCompanies) => reportCompanies.report, {
-  //   cascade: true, nullable: true
-  // })
-  // report_companies: ReportCompany[];
-
-  // @OneToOne(() => ReportContent, (reportContent) => reportContent.report, {
-  //   cascade: true,
-  // })
-  // @JoinColumn({ name: 'report_content_id' })
-  // content: ReportContent;
+  @OneToOne(() => Quote, (quote) => quote.land)
+  @JoinColumn({ name: 'quote_id' })
+  quote: Quote;
 
   @CreateDateColumn()
   @Exclude()
