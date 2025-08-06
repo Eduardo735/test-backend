@@ -3,7 +3,7 @@ import {
   Controller,
   Post,
   Scope,
-  UnauthorizedException,
+  // UnauthorizedException,
 } from '@nestjs/common';
 import { ApiResponse } from 'src/shared/types/api-response';
 import { LoginResponseDto } from '../dto/login-response.dto';
@@ -15,17 +15,14 @@ import { AuthService } from '../services/Auth.service';
   scope: Scope.REQUEST,
 })
 export class AuthController {
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService) {}
 
   @Post('login')
   async login(
     @Body()
     loginDto: LoginDto,
   ): Promise<ApiResponse<LoginResponseDto>> {
-    const user = await this.authService.validateUser(
-      loginDto.username,
-      loginDto.password,
-    );
+    await this.authService.validateUser(loginDto.username, loginDto.password);
 
     // const token = this.authService.generateToken(user);
 

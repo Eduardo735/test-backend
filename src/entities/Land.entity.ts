@@ -1,25 +1,16 @@
 import { Exclude } from 'class-transformer';
-import ReportCompany from './ReportCompany.entity';
-import { ReportContent } from './ReportContent.entity';
 // import { ReportContent } from './ReportContent.entity';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  JoinColumn,
-  JoinTable,
-  ManyToMany,
-  ManyToOne,
-  OneToMany,
-  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { User } from './User.entity';
 
-@Entity('report')
-export class Report {
+@Entity('land')
+export class Land {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -54,11 +45,11 @@ export class Report {
   // })
   // report_companies: ReportCompany[];
 
-  @OneToOne(() => ReportContent, (reportContent) => reportContent.report, {
-    cascade: true,
-  })
-  @JoinColumn({ name: 'report_content_id' })
-  content: ReportContent;
+  // @OneToOne(() => ReportContent, (reportContent) => reportContent.report, {
+  //   cascade: true,
+  // })
+  // @JoinColumn({ name: 'report_content_id' })
+  // content: ReportContent;
 
   @CreateDateColumn()
   @Exclude()

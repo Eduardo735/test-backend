@@ -5,25 +5,29 @@ import {
   DeleteDateColumn,
   Entity,
   PrimaryGeneratedColumn,
-  UpdateDateColumn
+  UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('report_company')
-export default class ReportCompany {
+@Entity('quotation')
+export class Quotation {
   @PrimaryGeneratedColumn('uuid')
   id: string;
+
+  @Column({ nullable: true })
+  name: string;
+
+  @Column({ nullable: true })
+  user_id: string;
 
   @CreateDateColumn()
   @Exclude()
   created_at: Date;
 
-  @Column({ type: 'boolean', nullable: false, default: false })
-  is_primary: boolean;
-
-  @DeleteDateColumn()
-  deleted_at?: Date;
-
   @UpdateDateColumn({ nullable: true })
   @Exclude()
   updated_at: Date;
+
+  @DeleteDateColumn()
+  @Exclude()
+  deleted_at?: Date;
 }

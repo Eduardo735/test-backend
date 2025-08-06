@@ -9,11 +9,10 @@ import asyncConfigTypeORM from './shared/infrastructure/typeorm/typeorm.config';
     ConfigModule.forRoot(),
     TypeOrmModule.forRootAsync({
       useFactory: async () => await asyncConfigTypeORM(),
-
     }),
-    Modules
+    Modules,
   ],
   controllers: [],
   exports: [Modules],
 })
-export class AppModule { }
+export class AppModule {}

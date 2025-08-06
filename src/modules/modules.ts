@@ -4,18 +4,17 @@ import { APP_GUARD } from '@nestjs/core';
 import { AuthModule } from './auth/auth.module';
 import { ClerkAuthGuard } from './auth/strategies/ClerkAuthGuard';
 import { UsersModule } from './user/users.module';
-import { ReportModule } from './report/report.module';
+import { QuoteModule } from './quote/quote.module';
+import { LandModule } from './land/land.module';
 
 @Module({
-    imports: [
-        ConfigModule.forRoot(),
-        UsersModule,
-        AuthModule,
-        ReportModule
-    ],
-    providers: [
-        { provide: APP_GUARD, useClass: ClerkAuthGuard }
-    ],
+  imports: [
+    ConfigModule.forRoot(),
+    UsersModule,
+    AuthModule,
+    QuoteModule,
+    LandModule,
+  ],
+  providers: [{ provide: APP_GUARD, useClass: ClerkAuthGuard }],
 })
-export class Modules {
-}
+export class Modules {}

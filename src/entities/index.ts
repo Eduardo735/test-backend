@@ -6,9 +6,9 @@
 // import CompanyWatchlist from './CompanyWatchlist.entity';
 // import { Doctor } from './Doctor.entity';
 import { Firm } from './Firm.entity';
-import { Report } from './Report.entity';
-import ReportCompany from './ReportCompany.entity';
-import { ReportContent } from './ReportContent.entity';
+import { Land } from './Land.entity';
+// import ReportCompany from './ReportCompany.entity';
+// import { ReportContent } from './ReportContent.entity';
 // import { Reward } from './Reward.entity';
 import Role from './Role.entity';
 // import { Star } from './Star.entity';
@@ -24,45 +24,43 @@ import UserRole from './UserRole.entity';
 // import Watchlist from './Watchlist.entity';
 
 export const allEntities = [
-    ReportContent,
-    // UserAudit,
-    // Bookmark,
-    Role,
-    UserRole,
-    User,
-    Firm,
-    // Star,
-    // UserPhone,
-    UserEmail,
-    // UserSocialMedia,
-    // UserWatchlist,
-    // Watchlist,
-    // CompanyWatchlist,
-    // Company,
-    Report,
-    ReportCompany,
-    // Transaction,
-    // Reward, Business, Doctor, 
-    Role,
-    // TradingSetup
-    // Bookmark,
-    // Business,
-    // Company,
-    // CompanyWatchlist,
-    // Doctor,
-    // Firm,
-    // Report,
-    // ReportCompany,
-    // Reward,
-    // User,
-    // Star,
-    // Doctor,
-    // Reward,
-    // Role,
-    // UserRole,
-    // ReportContent,
-    // Transaction,
-    // Watchlist,
-
-
+  // ReportContent,
+  // UserAudit,
+  // Bookmark,
+  Role,
+  UserRole,
+  User,
+  Firm,
+  // Star,
+  // UserPhone,
+  UserEmail,
+  // UserSocialMedia,
+  // UserWatchlist,
+  // Watchlist,
+  // CompanyWatchlist,
+  // Company,
+  Land,
+  // ReportCompany,
+  // Transaction,
+  // Reward, Business, Doctor,
+  Role,
+  // TradingSetup
+  // Bookmark,
+  // Business,
+  // Company,
+  // CompanyWatchlist,
+  // Doctor,
+  // Firm,
+  // Report,
+  // ReportCompany,
+  // Reward,
+  // User,
+  // Star,
+  // Doctor,
+  // Reward,
+  // Role,
+  // UserRole,
+  // ReportContent,
+  // Transaction,
+  // Watchlist,
 ];
