@@ -11,6 +11,7 @@ export class CustomerController {
   constructor(private readonly customerService: CustomerService) { }
 
   @Get()
+  @Public()
   async findAllCustomer() {
     try {
       const customers = await this.customerService.findAll();
