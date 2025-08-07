@@ -5,6 +5,8 @@ import {
   DeleteDateColumn,
   Entity,
   JoinColumn,
+  ManyToOne,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -29,9 +31,7 @@ export class Quote {
   @JoinColumn({ name: 'land_id' })
   land: Land;
 
-  @OneToOne(() => Customer, (customer) => customer.quote, {
-    cascade: true,
-  })
+  @ManyToOne(() => Customer, (customer) => customer.quote)
   @JoinColumn({ name: 'customer_id' })
   customer: Customer;
 

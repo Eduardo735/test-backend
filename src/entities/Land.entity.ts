@@ -6,6 +6,7 @@ import {
   DeleteDateColumn,
   Entity,
   JoinColumn,
+  ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -21,15 +22,15 @@ export class Land {
   @Column({ nullable: true })
   name: string;
 
-  @OneToOne(() => State, (state) => state.land, {
-    cascade: true,
-  })
-  @JoinColumn({ name: 'state_id' })
-  state: State;
+  @Column({ type: 'json', nullable: true })
+  dataLand: any;
 
   @OneToOne(() => Quote, (quote) => quote.land)
-  @JoinColumn({ name: 'quote_id' })
   quote: Quote;
+
+  @ManyToOne(() => State, (state) => state.land)
+  @JoinColumn({ name: 'state_id' })
+  state: State;
 
   @CreateDateColumn()
   @Exclude()

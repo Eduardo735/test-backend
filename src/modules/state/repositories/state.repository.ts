@@ -13,23 +13,13 @@ export class StateRepository {
   ) { }
 
   async createState(dto: CreateStateDto): Promise<State> {
-    const tradingSetup = this.repository.create(dto);
-    return await this.repository.save(tradingSetup);
+    const state = this.repository.create(dto);
+    return await this.repository.save(state);
   }
 
-  async findPaginationByUser(): Promise<State[]> {
+  async findAll(): Promise<State[]> {
     return this.repository.find({
       order: { created_at: 'DESC' },
     });
-  }
-
-  async findOneById(id: string): Promise<State> {
-    const tradingSetup = await this.repository.findOne({
-      where: { id },
-    });
-    if (!tradingSetup) {
-      throw new Error(`TradingSetup with id ${id} not found`);
-    }
-    return tradingSetup;
   }
 }

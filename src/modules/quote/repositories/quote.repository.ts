@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Land } from 'src/entities/Land.entity';
+import { Quote } from 'src/entities/Quote.entity';
 import { Repository } from 'typeorm';
 import { CreateQuoteDto } from '../dto/create-quote.dto';
 import { UpdateReportDto } from '../dto/update-quote.dto';
@@ -8,28 +8,45 @@ import { UpdateReportDto } from '../dto/update-quote.dto';
 @Injectable()
 export class QuoteRepository {
   constructor(
-    @InjectRepository(Land)
-    private readonly repository: Repository<Land>,
-  ) {}
+    @InjectRepository(Quote)
+    private readonly repository: Repository<Quote>,
+  ) { }
 
-  async createQuote(dto: CreateQuoteDto): Promise<Land> {
+  async createQuote(dto: CreateQuoteDto): Promise<Quote> {
     const tradingSetup = this.repository.create(dto);
     return await this.repository.save(tradingSetup);
   }
 
-  async findPaginationByUser(limit = 10, page = 1): Promise<[Land[], number]> {
+  async findPaginationByUser(limit = 10, page = 1): Promise<[Quote[], number]> {
     const take = limit;
     const skip = (page - 1) * limit;
 
     return this.repository.findAndCount({
-      relations: ['content'],
+      relations: ['land', 'customer', 'land.state'],
       take,
       skip,
       order: { created_at: 'DESC' },
+      select: {
+        id: true,
+        name: true,
+        land: {
+          id: true,
+          state: {
+            id: true,
+            name: true,
+          },
+          dataLand: true,
+        },
+        created_at: true,
+        customer: {
+          id: true,
+          name: true,
+        },
+      },
     });
   }
 
-  async findOneById(id: string): Promise<Land> {
+  async findOneById(id: string): Promise<Quote> {
     const tradingSetup = await this.repository.findOne({
       where: { id },
     });
@@ -39,7 +56,7 @@ export class QuoteRepository {
     return tradingSetup;
   }
 
-  async updateQuote(id: string, data: Partial<UpdateReportDto>): Promise<Land> {
+  async updateQuote(id: string, data: Partial<UpdateReportDto>): Promise<Quote> {
     await this.repository.update(id, data);
     return this.findOneById(id);
   }

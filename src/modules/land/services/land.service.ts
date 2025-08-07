@@ -8,32 +8,30 @@ import { UpdateLandDto } from '../dto/update-land.dto';
 export class LandService {
   constructor(
     private readonly quoteRepository: LandRepository,
-    // private readonly notificationFactory: NotificationFactory,
-    // private readonly positionSizeService: PositionSizeService
-  ) {}
+  ) { }
 
   create(dto: CreateLandDto) {
     return this.quoteRepository.createLand(dto);
   }
 
-  findAll(query: PaginationQueryDto) {
-    const { limit = 10, offset = 1 } = query;
-    return this.quoteRepository
-      .findPaginationByUser(limit, offset)
-      .then(([_tradingSetups, _total]) => {
-        return [_tradingSetups, _total];
-      });
-  }
+  // findAll(query: PaginationQueryDto) {
+  //   const { limit = 10, offset = 1 } = query;
+  //   return this.quoteRepository
+  //     .findPaginationByUser(limit, offset)
+  //     .then(([_tradingSetups, _total]) => {
+  //       return [_tradingSetups, _total];
+  //     });
+  // }
 
-  findOne(id: string) {
-    return this.quoteRepository.findOneById(id);
-  }
+  // findOne(id: string) {
+  //   return this.quoteRepository.findOneById(id);
+  // }
 
-  update(id: string, data: Partial<UpdateLandDto>) {
-    return this.quoteRepository.updateLand(id, data);
-  }
+  // update(id: string, data: Partial<UpdateLandDto>) {
+  //   return this.quoteRepository.updateLand(id, data);
+  // }
 
-  remove(id: string) {
-    return this.quoteRepository.deleteLand(id);
-  }
+  // remove(id: string) {
+  //   return this.quoteRepository.deleteLand(id);
+  // }
 }

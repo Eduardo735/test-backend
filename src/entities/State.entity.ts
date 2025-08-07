@@ -2,10 +2,9 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  JoinColumn,
-  OneToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
+  UpdateDateColumn
 } from 'typeorm';
 import { Land } from './Land.entity';
 
@@ -17,9 +16,8 @@ export class State {
   @Column({ nullable: true })
   name: string;
 
-  @OneToOne(() => State, (state) => state.land)
-  @JoinColumn({ name: 'land_id' })
-  land: Land;
+  @OneToMany(() => Land, (land) => land)
+  land: Land[];
 
   @CreateDateColumn()
   created_at: Date;

@@ -3,6 +3,8 @@ import {
   Controller,
   Delete,
   Get,
+  HttpException,
+  HttpStatus,
   Param,
   Patch,
   Post,
@@ -11,30 +13,49 @@ import {
 import { PaginationQueryDto } from 'src/shared/dto/pagination-query.dto';
 import { CreateQuoteDto } from '../dto/create-quote.dto';
 import { QuoteService } from '../services/quote.service';
+import { Public } from 'src/modules/auth/decorators/public.decorator';
 
 @Controller('quote')
 export class QuoteController {
-  constructor(private readonly quoteService: QuoteService) {}
+  constructor(private readonly quoteService: QuoteService) { }
 
+  @Public()
   @Post()
   createQuote(@Body() createReportDto: CreateQuoteDto) {
-    console.log('createReportDto :>> ', createReportDto);
-    return this.quoteService.create(createReportDto);
+    try {
+      if (createReportDto.area <= .01) {
+        throw new Error(`No debe ser menor a una hectarea`);
+      }
+      if (createReportDto.area >= 10) {
+        throw new Error(`No debe ser mayor a 10 hectareas`);
+      }
+      return this.quoteService.create(createReportDto);
+    } catch (e) {
+      throw new HttpException({
+        status: HttpStatus.INTERNAL_SERVER_ERROR,
+        error: e.message,
+      }, HttpStatus.INTERNAL_SERVER_ERROR, {
+        cause: e.message
+      });
+    }
+
   }
 
+  @Public()
   @Get()
-  async findAllReports(@Query() query: PaginationQueryDto) {
+  async findAllQuotes(@Query() query: PaginationQueryDto) {
     try {
-      const [reportPagination, total] = await this.quoteService.findAll(query);
+      const [quotesPagination, total] = await this.quoteService.findAll(query);
+      console.log('quotesPagination :>> ', quotesPagination);
       return {
         success: true,
-        message: 'Success fetching reports',
-        data: { reports: reportPagination, total },
+        message: 'Success fetching quotes',
+        data: { quotes: quotesPagination, total },
       };
-    } catch (e: unknown) {
+    } catch (e) {
       return {
         success: false,
-        message: e instanceof Error ? e.message : 'An unknown error occurred',
+        message: e.message,
       };
     }
   }
@@ -51,41 +72,7 @@ export class QuoteController {
     } catch (e) {
       return {
         success: false,
-        message: e instanceof Error ? e.message : 'An unknown error occurred',
-      };
-    }
-  }
-
-  @Patch(':id')
-  updateReport(@Param('id') id: string, @Body() data: Partial<CreateQuoteDto>) {
-    try {
-      const report = this.quoteService.update(id, data);
-      return {
-        success: true,
-        message: 'Success update report',
-        data: { report },
-      };
-    } catch (e) {
-      return {
-        success: false,
-        message: e instanceof Error ? e.message : 'An unknown error occurred',
-      };
-    }
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    try {
-      const report = this.quoteService.remove(id);
-      return {
-        success: true,
-        message: 'Success remove report',
-        data: { report },
-      };
-    } catch (e) {
-      return {
-        success: false,
-        message: e instanceof Error ? e.message : 'An unknown error occurred',
+        message: e.message,
       };
     }
   }

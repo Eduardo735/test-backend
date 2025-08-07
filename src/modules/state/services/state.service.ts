@@ -15,10 +15,6 @@ export class StateService {
 
   findAll() {
     return this.stateRepository
-      .findPaginationByUser();
-  }
-
-  findOne(id: string) {
-    return this.stateRepository.findOneById(id);
+      .findAll();
   }
 }

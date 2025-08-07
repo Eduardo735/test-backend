@@ -5,6 +5,8 @@ import {
   DeleteDateColumn,
   Entity,
   JoinColumn,
+  ManyToOne,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -26,9 +28,10 @@ export class Customer {
   @Exclude()
   created_at: Date;
 
-  @OneToOne(() => Quote, (quote) => quote.customer)
-  @JoinColumn({ name: 'quote_id' })
-  quote: Quote;
+
+  @OneToMany(() => Quote, (quote) => quote)
+  @JoinColumn({ name: 'id' })
+  quote: Quote[];
 
   @UpdateDateColumn({ nullable: true })
   @Exclude()

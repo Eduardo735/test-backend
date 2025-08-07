@@ -1,30 +1,28 @@
-import { IsOptional, IsString, IsUUID } from 'class-validator';
-
-// export class QuoteContentDto {
-//   @IsString()
-//   markdown: string; // ajusta según campos reales de ReportContent
-// }
+import { IsNumber, IsOptional, IsString, IsUUID } from 'class-validator';
 
 export class CreateQuoteDto {
-  @IsString()
-  name: string;
+
+  @IsNumber()
+  area: number;
 
   @IsUUID()
+  customer_id: string;
+
+  @IsUUID()
+  state_id: string;
+
+  @IsString()
   @IsOptional()
-  user_id: string;
+  crop: string;
 
-  // @IsOptional()
-  // @IsArray()
-  // @IsUUID('all', { each: true })
-  // memberIds?: string[]; // solo ids de usuarios miembros
+  @IsString()
+  @IsOptional()
+  validity: string;
 
-  // @IsOptional()
-  // @ValidateNested({ each: true })
-  // @Type(() => ReportCompanyDto)
-  // report_companies?: ReportCompanyDto[];
+  @IsNumber()
+  @IsOptional()
+  insured_amount: number;
 
-  //   @IsOptional()
-  //   @ValidateNested()
-  //   @Type(() => ReportContentDto)
-  //   content?: ReportContentDto;
+  @IsOptional()
+  land?: Record<string, any>;
 }
