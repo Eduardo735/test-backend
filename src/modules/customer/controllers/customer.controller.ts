@@ -10,7 +10,6 @@ import { CustomerService } from '../services/customer.service';
 export class CustomerController {
   constructor(private readonly customerService: CustomerService) { }
 
-  @Public()
   @Get()
   async findAllCustomer() {
     try {

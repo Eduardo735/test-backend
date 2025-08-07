@@ -15,7 +15,6 @@ export class StateController {
 
 
   @Post()
-  @Public()
   createLand(@Body() createLandDto: CreateStateDto) {
     return this.stateService.create(createLandDto);
   }

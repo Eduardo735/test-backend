@@ -19,7 +19,6 @@ import { Public } from 'src/modules/auth/decorators/public.decorator';
 export class QuoteController {
   constructor(private readonly quoteService: QuoteService) { }
 
-  @Public()
   @Post()
   createQuote(@Body() createReportDto: CreateQuoteDto) {
     try {
@@ -41,7 +40,6 @@ export class QuoteController {
 
   }
 
-  @Public()
   @Get()
   async findAllQuotes(@Query() query: PaginationQueryDto) {
     try {
