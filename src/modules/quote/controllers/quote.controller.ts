@@ -20,6 +20,7 @@ export class QuoteController {
   constructor(private readonly quoteService: QuoteService) { }
 
   @Post()
+  @Public()
   createQuote(@Body() createReportDto: CreateQuoteDto) {
     try {
       if (createReportDto.area <= .01) {
@@ -41,6 +42,7 @@ export class QuoteController {
   }
 
   @Get()
+  @Public()
   async findAllQuotes(@Query() query: PaginationQueryDto) {
     try {
       const [quotesPagination, total] = await this.quoteService.findAll(query);
@@ -49,23 +51,6 @@ export class QuoteController {
         success: true,
         message: 'Success fetching quotes',
         data: { quotes: quotesPagination, total },
-      };
-    } catch (e) {
-      return {
-        success: false,
-        message: e.message,
-      };
-    }
-  }
-
-  @Get(':id')
-  async findOneReport(@Param('id') id: string) {
-    try {
-      const setup = await this.quoteService.findOne(id);
-      return {
-        success: true,
-        message: 'Success fetching reports',
-        data: { setup },
       };
     } catch (e) {
       return {
