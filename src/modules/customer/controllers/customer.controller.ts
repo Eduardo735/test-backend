@@ -2,7 +2,6 @@ import {
   Controller,
   Get
 } from '@nestjs/common';
-import { Public } from 'src/modules/auth/decorators/public.decorator';
 import { CustomerService } from '../services/customer.service';
 
 
@@ -11,7 +10,6 @@ export class CustomerController {
   constructor(private readonly customerService: CustomerService) { }
 
   @Get()
-  @Public()
   async findAllCustomer() {
     try {
       const customers = await this.customerService.findAll();

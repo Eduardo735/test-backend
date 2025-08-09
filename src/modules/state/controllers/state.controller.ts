@@ -4,7 +4,6 @@ import {
   Get,
   Post
 } from '@nestjs/common';
-import { Public } from 'src/modules/auth/decorators/public.decorator';
 import { CreateStateDto } from '../dto/create-state.dto';
 import { StateService } from '../services/state.service';
 
@@ -19,7 +18,6 @@ export class StateController {
     return this.stateService.create(createLandDto);
   }
 
-  @Public()
   @Get()
   async findAllState() {
     try {

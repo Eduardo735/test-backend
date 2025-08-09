@@ -6,13 +6,12 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
-  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Land } from './Land.entity';
 import { Customer } from './Customer.entity';
+import { Land } from './Land.entity';
 
 @Entity('quote')
 export class Quote {

@@ -1,5 +1,3 @@
-// import { Report } from './Report.entity';
-// import ReportCompany from './ReportCompany.entity';
 import { State } from './State.entity';
 import { User } from './User.entity';;
 import { Quote } from './Quote.entity';

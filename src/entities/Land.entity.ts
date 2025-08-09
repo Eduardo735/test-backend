@@ -1,5 +1,4 @@
 import { Exclude } from 'class-transformer';
-// import { ReportContent } from './ReportContent.entity';
 import {
   Column,
   CreateDateColumn,

@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ClerkClientProvider } from './modules/auth/providers/ClerkClientProvider';
 import { Modules } from './modules/modules';
 import asyncConfigTypeORM from './shared/infrastructure/typeorm/typeorm.config';
 
@@ -14,5 +15,6 @@ import asyncConfigTypeORM from './shared/infrastructure/typeorm/typeorm.config';
   ],
   controllers: [],
   exports: [Modules],
+  providers: [ClerkClientProvider],
 })
-export class AppModule {}
+export class AppModule { }

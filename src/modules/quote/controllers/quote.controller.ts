@@ -1,26 +1,21 @@
 import {
   Body,
   Controller,
-  Delete,
   Get,
   HttpException,
   HttpStatus,
-  Param,
-  Patch,
   Post,
-  Query,
+  Query
 } from '@nestjs/common';
 import { PaginationQueryDto } from 'src/shared/dto/pagination-query.dto';
 import { CreateQuoteDto } from '../dto/create-quote.dto';
 import { QuoteService } from '../services/quote.service';
-import { Public } from 'src/modules/auth/decorators/public.decorator';
 
 @Controller('quote')
 export class QuoteController {
   constructor(private readonly quoteService: QuoteService) { }
 
   @Post()
-  @Public()
   createQuote(@Body() createReportDto: CreateQuoteDto) {
     try {
       if (createReportDto.area <= .01) {
@@ -42,7 +37,6 @@ export class QuoteController {
   }
 
   @Get()
-  @Public()
   async findAllQuotes(@Query() query: PaginationQueryDto) {
     try {
       const [quotesPagination, total] = await this.quoteService.findAll(query);

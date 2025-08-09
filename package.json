@@ -26,6 +26,8 @@
   },
   "dependencies": {
     "@aws-sdk/client-secrets-manager": "^3.741.0",
+    "@aws-sdk/client-sns": "^3.864.0",
+    "@aws-sdk/client-sqs": "^3.864.0",
     "@clerk/backend": "^2.4.1",
     "@clerk/express": "^1.7.5",
     "@nestjs/common": "^11.0.1",
@@ -47,6 +49,7 @@
     "pg": "^8.13.1",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
+    "sqs-consumer": "^12.0.0",
     "svix": "^1.69.0",
     "typeorm": "^0.3.20"
   },
